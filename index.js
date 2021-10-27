@@ -19,7 +19,15 @@ async function run() {
     {
         await client.connect()
         const database = client.db('network_volunteer');
-        const volunteerCollection= database.collection('volunteers')
+        const volunteerCollection= database.collection('volunteers');
+
+        //get api 
+        app.get('/work', async (req, res) => {
+            const cursor = volunteerCollection.find({})
+            const result = await cursor.toArray()
+            // console.log(result)
+            res.send(result)
+        })
     }
     finally
     {
